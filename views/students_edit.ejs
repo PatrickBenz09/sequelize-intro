@@ -1,0 +1,15 @@
+<html>
+<head>
+  <title>Hiksuu</title>
+</head>
+<body>
+  <form action="/students/edit/<%= data.id %>" method="post">
+    <input type="text" name="first_name" placeholder="Input Your First Name" value="<%= data.first_name %>">
+    <input type="text" name="last_name" placeholder="Input Your Last Name" value="<%= data.last_name %>">
+    <input type="text" name="email" placeholder="Input Your Email" value="<%= data.email %>">
+    <input type="hidden" name="emailOri" value="<%= data.email %>">
+    <input type="submit" value="Submit">
+    <span><%= err?err:"" %></span>
+  </form>
+</body>
+</html>

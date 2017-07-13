@@ -1,0 +1,19 @@
+<html>
+<head>
+  <title>Hiksuu</title>
+</head>
+<body>
+  <table border="1 px solid black">
+    <% datas.forEach(data => { %>
+    <tr>
+      <th><%= data.id %></th>
+      <th><%= data.first_name %></th>
+      <th><%= data.last_name %></th>
+      <th><%= data.email %></th>
+      <th><a href="/students/edit/<%= data.id %>">Edit</a></th>
+      <th><a href="/students/delete/<%= data.id %>" onclick="return confirm('Are you sure?')">Delete</a></th>
+    </th>
+    <% }) %>
+  </table>
+</body>
+</html>
