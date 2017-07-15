@@ -26,7 +26,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/enrolledstudents/:id', function(req, res) {
-  model.student_subject.findAll({ where: { SubjectId: req.params.id }, include: [{ all:true }] })
+  model.student_subject.findAll({ order: [[ 'Student', 'first_name', 'ASC' ]] ,where: { SubjectId: req.params.id }, include: [{ all:true }] })
   .then(result => {
     res.render('subject_students_enrolled', {datas: result});
   })
