@@ -5,7 +5,7 @@ const router  = express.Router();
 const db = require('../models');
 
 router.get('/', function(req, res) {
-  db.Teacher.findAll({order: [['first_name', 'ASC']]})
+  db.Teacher.findAll({ order: [ ['first_name', 'ASC'] ]})
   .then(result => {
     let janjiPalsu = result.map(teacher => {
       return new Promise((fulfill, reject) => {
@@ -31,7 +31,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/add', function(req,res) {
-  
+
 });
 
 router.get('/edit/:id', function(req, res) {
