@@ -5,14 +5,25 @@
 <body>
   <a href="/students/add">Add</a>
   <table border="1 px solid black">
+    <tr>
+      <th>ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Actions</th>
+      <th>Options</th>
+    </tr>
     <% datas.forEach(data => { %>
     <tr>
       <th><%= data.id %></th>
       <th><%= data.first_name %></th>
       <th><%= data.last_name %></th>
       <th><%= data.email %></th>
-      <th><a href="/students/edit/<%= data.id %>">Edit</a></th>
-      <th><a href="/students/delete/<%= data.id %>" onclick="return confirm('Are you sure?')">Delete</a></th>
+      <th><a href="/students/addsubject/<%= data.id %>">Add Subject</a></th>
+      <th>
+        <a href="/students/edit/<%= data.id %>">Edit</a> |
+        <a href="/students/delete/<%= data.id %>" onclick="return confirm('Are you sure?')">Delete</a>
+      </th>
     </th>
     <% }) %>
   </table>

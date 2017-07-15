@@ -4,10 +4,20 @@
 </head>
 <body>
   <table border="1 px solid black">
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Subject Taught</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
     <% datas.forEach(data => { %>
     <tr>
       <th><%= data.first_name %></th>
       <th><%= data.last_name %></th>
+      <th><%= data.subject_name?data.subject_name:"unassigned" %></th>
+      <th><a href="/teachers/edit/<%= data.id %>">Edit</a></th>
+      <th><a href="/teachers/delete/<%= data.id %>" onclick="return confirm('Are you sure?')">Delete</a></th>
     </th>
     <% }) %>
   </table>

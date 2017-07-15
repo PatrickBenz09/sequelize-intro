@@ -1,0 +1,22 @@
+<html>
+<head>
+  <title>Hiksuu</title>
+</head>
+<body>
+  <form action="/teachers/edit/<%= data.id %>" method="post">
+    <input type="text" name="first_name" placeholder="Input Your First Name" value="<%= data.first_name %>">
+    <input type="text" name="last_name" placeholder="Input Your Last Name" value="<%= data.last_name %>">
+    <input type="text" name="email" placeholder="Input Your Email" value="<%= data.email %>">
+    <select class="selectpicker" data-style="btn-info" name="subject_id">
+      <optgroup>
+        <option value="null">unassigned</option>
+        <% subject.forEach(i => { %>
+        <option value="<%= i.id %>" <%= i.id === data.subject_id? "SELECTED":"" %> ><%= i.subject_name %></option>
+        <% }) %>
+      </optgroup>
+    </select>
+    <input type="hidden" name="emailOri" value="<%= data.email %>">
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>

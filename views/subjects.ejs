@@ -1,12 +1,26 @@
 <html>
 <head>
   <title>Hiksuu</title>
+  <link rel="stylesheet" href="/css/animate.css">
 </head>
 <body>
   <table border="1 px solid black">
+    <tr>
+      <th>Subject Name</th>
+      <th>Teacher Teaching</th>
+      <th>Actions</th>
+    </tr>
     <% datas.forEach(data => { %>
     <tr>
       <th><%= data.subject_name %></th>
+      <th>
+        <ol>
+        <% data.teacher_name.forEach(teacher => { %>
+          <li><%= teacher %></li>
+        <% }) %>
+        </ol>
+      </th>
+      <th><a href="/subjects/enrolledstudents/<%= data.id %>">Enrolled Students</a></th>
     </th>
     <% }) %>
   </table>
