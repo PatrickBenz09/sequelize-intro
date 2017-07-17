@@ -5,12 +5,12 @@ const model = require('../models');
 router.get('/', function(req, res) {
   model.Student.findAll({ order: [ ['first_name', 'ASC'] ] })
   .then(result => {
-    res.render('students', {datas: result});
+    res.render('students', {datas: result, pageTitle: "Student"});
   });
 });
 
 router.get('/add', function(req, res) {
-  res.render('students_add', {err: null});
+  res.render('students_add', {err: null, pageTitle: "Student Add"});
 });
 
 router.post('/add', function(req, res) {
@@ -52,7 +52,7 @@ router.get('/delete/:id', function(req, res) {
 router.get('/edit/:id', function(req, res) {
   model.Student.findOne({ where: { id: req.params.id } })
   .then(result => {
-    res.render('students_edit', {data: result, err: null});
+    res.render('students_edit', {data: result, err: null, pageTitle: "Student Edit"});
   });
 });
 
@@ -95,7 +95,7 @@ router.get('/addsubject/:id', function(req, res) {
 
   Promise.all([student, subjects])
   .then(result => {
-    res.render('student_add_subject', {dataStudent: result[0], dataSubjects: result[1], err: null});
+    res.render('student_add_subject', {dataStudent: result[0], dataSubjects: result[1], err: null, pageTitle: "Student Add Subject"});
   })
   .catch(err => {
     res.render('student_add_subject', {err: err})

@@ -1,8 +1,9 @@
 <html>
 <head>
-  <title>Hiksuu</title>
+  <title><%= pageTitle %></title>
 </head>
 <body>
+  <%- include layouts/menubar %>
   <form action="/students/edit/<%= data.id %>" method="post">
     <input type="text" name="first_name" placeholder="Input Your First Name" value="<%= data.first_name %>">
     <input type="text" name="last_name" placeholder="Input Your Last Name" value="<%= data.last_name %>">

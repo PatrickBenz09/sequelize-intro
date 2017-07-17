@@ -1,8 +1,9 @@
 <html>
 <head>
-  <title>Hiksuu</title>
+  <title><%= pageTitle %></title>
 </head>
 <body>
+  <%- include layouts/menubar %>
   <table border="1 px solid black">
     <tr>
       <th>First Name</th>
@@ -20,6 +21,7 @@
       <th><a href="/teachers/delete/<%= data.id %>" onclick="return confirm('Are you sure?')">Delete</a></th>
     </th>
     <% }) %>
+    <a href="/teachers/add">add</a>
   </table>
 </body>
 </html>
