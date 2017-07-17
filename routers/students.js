@@ -73,37 +73,38 @@ router.get('/edit/:id', function(req, res) {
 });
 
 router.post('/edit/:id', function(req, res) {
-  db.Student.findOne(
-    {
-      where:
-      {
-        email: req.body.email
-      }
-    }
-  )
-  .then(result => {
-    if(!result || req.body.email === req.body.emailOri) {
-      db.Student.update(
-      {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        email: req.body.email,
-        jurusan: 'iniJurusan',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      }, {
-        where: {id: req.params.id}
-      })
-      .then(() => {
-        res.redirect('/students');
-      })
-      .catch(err => {
-        res.send('err');
-      })
-    } else {
-      res.render('students_add', {err: "Email Already Exist!"});
-    }
+  // db.Student.findOne(
+  //   {
+  //     where:
+  //     {
+  //       email: req.body.email
+  //     }
+  //   }
+  // )
+  // .then(result => {
+  //   if(!result || req.body.email === req.body.emailOri) {
+  db.Student.update(
+  {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    email: req.body.email,
+    jurusan: 'iniJurusan',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  }, {
+    where: {id: req.params.id}
+  })
+  .then(() => {
+    res.redirect('/students');
+  })
+  .catch(err => {
+    res.send(err);
   })
 });
+    // } else {
+    //   res.render('students_add', {err: "Email Already Exist!"});
+    // })
+//   })
+// });
 
 module.exports = router;

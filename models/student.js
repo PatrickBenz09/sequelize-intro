@@ -6,9 +6,21 @@ module.exports = function(sequelize, DataTypes) {
     email: {
       type: DataTypes.STRING,
       validate: {
-        isEmail: {
-          msg: "bukan email"
+
+        isUnique: (value, next) => {
+          Student.find(
+          {
+            where: { email: value },
+            attributes: ['id']
+          })
+          .done((err, user) => {
+            if(err) return next(err);
+            if(user) return next("Email is already in use!")
+            next();
+          });
         },
+        isEmail: { msg: "bukan email" }
+
       },
     },
     jurusan: DataTypes.STRING
