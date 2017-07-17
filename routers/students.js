@@ -2,15 +2,25 @@ const express = require('express');
 const router = express.Router();
 const model = require('../models');
 
+router.use((req, res, next) => {
+  if(req.session.authority > 0) {
+    next();
+  }
+  else {
+    //res.sendStatus(403);
+    res.render('forbidden', {canOnlyBeAccessedBy: "Every Legitimate Role", session: ""});
+  }
+})
+
 router.get('/', function(req, res) {
   model.Student.findAll({ order: [ ['first_name', 'ASC'] ] })
   .then(result => {
-    res.render('students', {datas: result, pageTitle: "Student"});
+    res.render('students', {datas: result, pageTitle: "Student", session: req.session.role});
   });
 });
 
 router.get('/add', function(req, res) {
-  res.render('students_add', {err: null, pageTitle: "Student Add"});
+  res.render('students_add', {err: null, pageTitle: "Student Add", session: req.session.role});
 });
 
 router.post('/add', function(req, res) {
@@ -33,7 +43,7 @@ router.post('/add', function(req, res) {
         res.send('err');
       })
     } else {
-      res.render('students_add', {err: "Email Already Exist!"});
+      res.render('students_add', {err: "Email Already Exist!", session: req.session.role});
     }
   });
 });
@@ -52,7 +62,7 @@ router.get('/delete/:id', function(req, res) {
 router.get('/edit/:id', function(req, res) {
   model.Student.findOne({ where: { id: req.params.id } })
   .then(result => {
-    res.render('students_edit', {data: result, err: null, pageTitle: "Student Edit"});
+    res.render('students_edit', {data: result, err: null, pageTitle: "Student Edit", session: req.session.role});
   });
 });
 
@@ -77,7 +87,7 @@ router.post('/edit/:id', function(req, res) {
         res.send('err');
       })
     } else {
-      res.render('students_add', {err: "Email Already Exist!"});
+      res.render('students_add', {err: "Email Already Exist!", session: req.session.role});
     }
   })
 });
@@ -95,10 +105,10 @@ router.get('/addsubject/:id', function(req, res) {
 
   Promise.all([student, subjects])
   .then(result => {
-    res.render('student_add_subject', {dataStudent: result[0], dataSubjects: result[1], err: null, pageTitle: "Student Add Subject"});
+    res.render('student_add_subject', {dataStudent: result[0], dataSubjects: result[1], err: null, pageTitle: "Student Add Subject", session: req.session.role});
   })
   .catch(err => {
-    res.render('student_add_subject', {err: err})
+    res.render('student_add_subject', {err: err, session: req.session.role})
   })
 });
 

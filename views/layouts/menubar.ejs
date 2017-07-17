@@ -22,14 +22,25 @@
 </ul>
 
 <nav>
-  <div class="nav-wrapper">
+  <div class="nav-wrapper blue-grey darken-4">
     <a href="#" class="brand-logo center" style="margin-left:-52px; color: gold">FAKE</a>
-    <a href="#" class="brand-logo center" style="border:2px black solid; margin-left:50px">SCHOOL</a>
+    <a href="#" class="brand-logo center" style="border:2px gold solid; margin-left:50px">SCHOOL</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a href="/">Home</a></li>
+      <% if(session == 'teacher' || session == 'academic' || session == 'headmaster') { %>
       <li><a class="dropdown-button" data-activates="studentDropdown">Student<i class="material-icons right">arrow_drop_down</i></a></li>
-      <li><a class="dropdown-button" data-activates="teacherDropdown">Teacher<i class="material-icons right">arrow_drop_down</i></a></li>
+      <% } %>
+      <% if(session == 'academic' || session == 'headmaster') { %>
       <li><a href="/subjects">Subject</a></li>
+      <% } %>
+      <% if(session == 'headmaster') { %>
+      <li><a class="dropdown-button" data-activates="teacherDropdown">Teacher<i class="material-icons right">arrow_drop_down</i></a></li>
+      <% } %>
+      <% if(session == undefined) { %>
+      <li><a href="/login">Login</a></li>
+      <% } else { %>
+      <li><a href="/logout">Logout</a></li>
+      <% } %>
     </ul>
   </div>
 </nav>

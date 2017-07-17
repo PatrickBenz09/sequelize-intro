@@ -4,6 +4,15 @@ const express = require('express');
 const router  = express.Router();
 const model = require('../models');
 
+router.use((req, res, next) => {
+  if(req.session.authority > 2)
+    next();
+  else {
+    // res.sendStatus(403);
+    res.render('forbidden', {canOnlyBeAccessedBy: "Headmaster", session: ""});
+  }
+})
+
 router.get('/', function(req, res) {
   model.Teacher.findAll({ order: [ ['first_name', 'ASC'] ]})
   .then(result => {
@@ -22,7 +31,7 @@ router.get('/', function(req, res) {
 
     Promise.all(janjiPalsu)
     .then(teacher => {
-      res.render('teachers', {datas: teacher, pageTitle: "Teacher"});
+      res.render('teachers', {datas: teacher, pageTitle: "Teacher", session: req.session.role});
     });
   })
   .catch(err => {
@@ -31,7 +40,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/add', function(req, res) {
-  res.render('teachers_add', {pageTitle: "Teacher Add"});
+  res.render('teachers_add', {pageTitle: "Teacher Add", session: req.session.role});
 })
 
 router.post('/add', function(req,res) {
@@ -54,7 +63,7 @@ router.get('/edit/:id', function(req, res) {
   .then(result => {
     model.Subject.findAll()
     .then(resultSubj => {
-      res.render('teachers_edit', {data: result, subject: resultSubj, pageTitle: "Teacher Edit"});
+      res.render('teachers_edit', {data: result, subject: resultSubj, pageTitle: "Teacher Edit", session: req.session.role});
     })
   })
 });
