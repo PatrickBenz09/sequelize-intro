@@ -12,16 +12,55 @@
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<ul id="studentDropdown" class="dropdown-content">
-  <li><a href="/students">Student</a></li>
-  <li><a href="/students/add">Add Student</a></li>
-</ul>
-<ul id="teacherDropdown" class="dropdown-content">
-  <li><a href="/teachers">Teacher</a></li>
-  <li><a href="/teachers/add">Teacher Add</a></li>
-</ul>
+
 
 <nav>
+  <ul id="slide-out" class="side-nav">
+      <li><a href="/"><i class="material-icons">home</i>Home</a></li>
+      <% if(session == 'teacher' || session == 'academic' || session == 'headmaster') { %>
+      <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header waves-effect">Student<i class="material-icons">arrow_drop_down</i></a>
+            <div class="collapsible-body">
+              <ul>
+                <li><a href="/students">Student</a></li>
+                <li><a href="/students/add">Add Student</a></li>
+                <li><div class="divider"></div></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <% } %>
+      <% if(session == 'academic' || session == 'headmaster') { %>
+      <li><a href="/subjects">Subject</a></li>
+      <% } %>
+      <% if(session == 'headmaster') { %>
+      <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header waves-effect">Teacher<i class="material-icons">arrow_drop_down</i></a>
+            <div class="collapsible-body">
+              <ul>
+                <li><a href="/teachers">Teacher</a></li>
+                <li><a href="/teachers/add">Teacher Add</a></li>
+                <li><div class="divider"></div></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <% } %>
+      <% if(session == undefined) { %>
+      <li><a href="/login">Login</a></li>
+      <li><a href="/signup">Sign Up</a></li>
+      <% } else { %>
+      <li><a href="/logout">Logout</a></li>
+      <% } %>
+    </ul>
+    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+
   <div class="nav-wrapper blue-grey darken-4">
     <a href="#" class="brand-logo center" style="margin-left:-52px; color: gold">FAKE</a>
     <a href="#" class="brand-logo center" style="border:2px gold solid; margin-left:50px">SCHOOL</a>
@@ -56,5 +95,7 @@
   $(document).ready(function(){
     $(".dropdown-button").dropdown();
     $('select').material_select();
+    $(".button-collapse").sideNav();
+    $('.collapsible').collapsible();
   });
 </script>
