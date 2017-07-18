@@ -29,4 +29,4 @@ app.use('/students', Student);
 app.use('/subjects', Subject);
 app.use('/teachers', Teacher);
 
-app.listen(3007);
+app.listen(process.env.PORT || 3000);
