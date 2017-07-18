@@ -47,7 +47,10 @@ router.get('/logout', function(req, res) {
 })
 
 router.get('/signup', function(req, res) {
-  res.render('signup', {pageTitle: "SignUp", session: req.session.role});
+  model.User.findAll()
+  .then(result => {
+    res.render('signup', {datas: result, pageTitle: "SignUp", session: req.session.role});
+  })
 });
 
 router.post('/signup', function(req, res) {
@@ -55,6 +58,7 @@ router.post('/signup', function(req, res) {
   {
     username: req.body.username,
     password: req.body.password,
+    role: req.body.role,
     salt: salting()
   })
   .then(result => {

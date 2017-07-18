@@ -10,6 +10,13 @@
       <form action="/signup" method="post">
         <input type="text" name="username" placeholder="Input Your User Name">
         <input type="password" name="password" placeholder="Input Your Password">
+        <div class="input-field col s12">
+          <select name="role">
+            <% datas.forEach(data => { %>
+            <option value="<%= data.role %>"><%= data.role %></option>
+            <% }) %>
+          </select>
+      </div>
         <input type="submit" value="Submit">
       </form>
     </div>
