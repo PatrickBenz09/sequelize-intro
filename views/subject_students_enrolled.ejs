@@ -1,0 +1,28 @@
+<html>
+<head>
+  <title><%= pageTitle %></title>
+</head>
+<body>
+  <%- include layouts/menubar %>
+  <h1><%= datas[0].Subject.subject_name %></h1>
+  <table border="1 px solid black">
+    <tr>
+      <th>Name</th>
+      <th>Score</th>
+      <th>Score Alphabet</th>
+    </tr>
+    <% datas.forEach(data => { %>
+    <tr>
+      <th><%= data.Student.first_name %></th>
+      <% if(data.score) { %>
+      <th><%= data.score %></th>
+      <th><%= data.scoreAlpha %></th>
+      <% } else { %>
+      <th><a href="/subjects/givescore/<%= data.Subject.id %>/<%= data.Student.id %>">Give Score</a></th>
+      <th><%= data.scoreAlpha %></th>
+      <% } %>
+    </th>
+    <% }) %>
+  </table>
+</body>
+</html>

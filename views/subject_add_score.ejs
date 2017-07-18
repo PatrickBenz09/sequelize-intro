@@ -1,0 +1,13 @@
+<html>
+<head>
+  <title><%= pageTitle %></title>
+</head>
+<body>
+  <%- include layouts/menubar %>
+  <form action="/subjects/givescore/<%= data.Subject.id %>/<%= data.Student.id %>" method="post">
+    <span><%= data.Student.first_name %></span>
+    <input type="number" name="score" placeholder="Input Score">
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>

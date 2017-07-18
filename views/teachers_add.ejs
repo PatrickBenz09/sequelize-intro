@@ -5,12 +5,11 @@
 </head>
 <body>
   <%- include layouts/menubar %>
-  <form action="/students/add" method="post">
+  <form action="/teachers/add" method="post">
     <input type="text" name="first_name" placeholder="Input Your First Name">
     <input type="text" name="last_name" placeholder="Input Your Last Name">
     <input type="text" name="email" placeholder="Input Your Email">
     <input type="submit" value="Submit">
-    <span><%= err?err:"" %></span>
   </form>
 </body>
 </html>

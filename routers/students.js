@@ -1,26 +1,33 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../models');
+const model = require('../models');
+
+router.use((req, res, next) => {
+  if(req.session.authority > 0) {
+    next();
+  }
+  else {
+    //res.sendStatus(403);
+    res.render('forbidden', {canOnlyBeAccessedBy: "Every Legitimate Role", session: ""});
+  }
+})
 
 router.get('/', function(req, res) {
-  db.Student.findAll()
+  model.Student.findAll({ order: [ ['first_name', 'ASC'] ] })
   .then(result => {
-    res.render('students', {datas: result});
+    res.render('students', {datas: result, pageTitle: "Student", session: req.session.role});
   });
 });
 
 router.get('/add', function(req, res) {
-  res.render('students_add', {err: null});
+  res.render('students_add', {err: null, pageTitle: "Student Add", session: req.session.role});
 });
 
 router.post('/add', function(req, res) {
-  db.Student.findOne(
-  {
-    where: {email: req.body.email}
-  })
+  model.Student.findOne({ where: {email: req.body.email} })
   .then(result => {
     if(!result) {
-      db.Student.create(
+      model.Student.create(
       {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -36,20 +43,14 @@ router.post('/add', function(req, res) {
         res.send('err');
       })
     } else {
-      res.render('students_add', {err: "Email Already Exist!"});
+      res.render('students_add', {err: "Email Already Exist!", session: req.session.role});
     }
   });
 });
 
 
 router.get('/delete/:id', function(req, res) {
-  db.Student.destroy(
-  {
-    where:
-    {
-      id: req.params.id
-    }
-  })
+  model.Student.destroy({ where: { id: req.params.id } })
   .then(() => {
     process.on('uncaughtException', function(err) {
       console.log('Caught exception: ' + err);
@@ -59,31 +60,17 @@ router.get('/delete/:id', function(req, res) {
 });
 
 router.get('/edit/:id', function(req, res) {
-  db.Student.findOne(
-    {
-      where:
-      {
-        id: req.params.id
-      }
-    }
-  )
+  model.Student.findOne({ where: { id: req.params.id } })
   .then(result => {
-    res.render('students_edit', {data: result, err: null});
+    res.render('students_edit', {data: result, err: null, pageTitle: "Student Edit", session: req.session.role});
   });
 });
 
 router.post('/edit/:id', function(req, res) {
-  db.Student.findOne(
-    {
-      where:
-      {
-        email: req.body.email
-      }
-    }
-  )
+  model.Student.findOne({ where: { email: req.body.email } })
   .then(result => {
     if(!result || req.body.email === req.body.emailOri) {
-      db.Student.update(
+      model.Student.update(
       {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -91,9 +78,8 @@ router.post('/edit/:id', function(req, res) {
         jurusan: 'iniJurusan',
         createdAt: new Date(),
         updatedAt: new Date(),
-      }, {
-        where: {id: req.params.id}
-      })
+      },
+      { where: { id: req.params.id } })
       .then(() => {
         res.redirect('/students');
       })
@@ -101,8 +87,39 @@ router.post('/edit/:id', function(req, res) {
         res.send('err');
       })
     } else {
-      res.render('students_add', {err: "Email Already Exist!"});
+      res.render('students_add', {err: "Email Already Exist!", session: req.session.role});
     }
+  })
+});
+
+router.get('/addsubject/:id', function(req, res) {
+  let student = model.Student.findOne({ where: { id: req.params.id } })
+  .then(result => {
+    return result;
+  })
+
+  let subjects = model.Subject.findAll()
+  .then(result => {
+    return result;
+  });
+
+  Promise.all([student, subjects])
+  .then(result => {
+    res.render('student_add_subject', {dataStudent: result[0], dataSubjects: result[1], err: null, pageTitle: "Student Add Subject", session: req.session.role});
+  })
+  .catch(err => {
+    res.render('student_add_subject', {err: err, session: req.session.role})
+  })
+});
+
+router.post('/addsubject/:id', function(req, res) {
+  model.student_subject.create(
+  {
+    StudentId: parseInt(req.params.id),
+    SubjectId: req.body.subject_id
+  })
+  .then(() => {
+    res.redirect('/students');
   })
 });
 

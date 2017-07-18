@@ -1,0 +1,24 @@
+<html>
+<head>
+  <title><%= pageTitle %></title>
+</head>
+<body>
+  <label>First Name</label>
+  <span><%= dataStudent.first_name %></span>
+  <span>Last Name</span>
+  <span><%= dataStudent.last_name %></span>
+  <span>Email</span>
+  <span><%= dataStudent.email %></span>
+  <form action="/students/addsubject/<%= dataStudent.id %>" method="post">
+    <select class="selectpicker" name="subject_id">
+      <optgroup label="Select Subject To Take">
+        <% dataSubjects.forEach(subject => { %>
+        <option value="<%= subject.id %>"><%= subject.subject_name %></option>
+        <% }) %>
+      </optgroup>
+    </select>
+    <input type="submit" value="Submit">
+    <span><%= err?err:"" %></span>
+  </form>
+</body>
+</html>
