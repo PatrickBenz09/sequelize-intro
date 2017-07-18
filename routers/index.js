@@ -34,7 +34,7 @@ router.post('/login', function(req, res, next) {
         res.redirect('/');
       }
       else {
-        res.render('forbidden', {canOnlyBeAccessedBy: "Password Incorrect!", session: ""});
+        res.render('forbidden', {canOnlyBeAccessedBy: "Password Incorrect!", session: undefined});
       }
     } else {
       res.render('forbidden', {canOnlyBeAccessedBy: "Username Doesn't Exist!", session: undefined});
