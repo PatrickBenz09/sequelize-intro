@@ -35,7 +35,7 @@ router.post('/login', function(req, res, next) {
       res.redirect('/');
     }
     else {
-      res.send("Password Incorrect!");
+      res.render('forbidden', {canOnlyBeAccessedBy: "Password Incorrect!", session: ""});
     }
   });
 });
