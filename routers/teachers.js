@@ -9,7 +9,7 @@ router.use((req, res, next) => {
     next();
   else {
     // res.sendStatus(403);
-    res.render('forbidden', {canOnlyBeAccessedBy: "Headmaster", session: ""});
+    res.render('forbidden', {canOnlyBeAccessedBy: "Headmaster", session: "Unauthorized"});
   }
 })
 

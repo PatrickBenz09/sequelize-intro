@@ -8,7 +8,7 @@ router.use((req, res, next) => {
   }
   else {
     //res.sendStatus(403);
-    res.render('forbidden', {canOnlyBeAccessedBy: "Every Legitimate Role", session: ""});
+    res.render('forbidden', {canOnlyBeAccessedBy: "Every Legitimate Role", session: "Unauthorized"});
   }
 })
 

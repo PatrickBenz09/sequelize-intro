@@ -6,8 +6,8 @@
   </head>
   <body>
     <%- include layouts/menubar %>
-    <% if(canOnlyBeAccessedBy === "Password Incorrect!") { %>
-    <h3>Password Incorrect</h3>
+    <% if(canOnlyBeAccessedBy === "Password Incorrect!" || canOnlyBeAccessedBy === "Username Doesn't Exist!") { %>
+    <h3><%= canOnlyBeAccessedBy %></h3>
     <% } else { %>
     <h3>You Can't Access This Page! &nbsp &nbsp [403: Forbidden]</h3>
     <h4>Only <%= canOnlyBeAccessedBy %> Can Access This Page..</h4>
