@@ -24,18 +24,20 @@ router.post('/login', function(req, res, next) {
     }
   })
   .then(result => {
-    if (encryptWithCrypto(req.body.password, result.dataValues.salt) === result.dataValues.password) {
-      if(result) {
+    if (result) {
+      if(encryptWithCrypto(req.body.password, result.dataValues.salt) === result.dataValues.password) {
         req.session.user = result.dataValues.username,
         req.session.role = result.dataValues.role
         if(req.session.role === 'headmaster') req.session.authority = 3;
         else if(req.session.role === 'academic') req.session.authority = 2;
         else if(req.session.role === 'teacher') req.session.authority = 1;
+        res.redirect('/');
       }
-      res.redirect('/');
-    }
-    else {
-      res.render('forbidden', {canOnlyBeAccessedBy: "Password Incorrect!", session: ""});
+      else {
+        res.render('forbidden', {canOnlyBeAccessedBy: "Password Incorrect!", session: ""});
+      }
+    } else {
+      res.render('forbidden', {canOnlyBeAccessedBy: "Username Doesn't Exist!", session: ""});
     }
   });
 });
