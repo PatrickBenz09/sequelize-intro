@@ -37,7 +37,7 @@ router.post('/login', function(req, res, next) {
         res.render('forbidden', {canOnlyBeAccessedBy: "Password Incorrect!", session: ""});
       }
     } else {
-      res.render('forbidden', {canOnlyBeAccessedBy: "Username Doesn't Exist!", session: ""});
+      res.render('forbidden', {canOnlyBeAccessedBy: "Username Doesn't Exist!", session: undefined});
     }
   });
 });

@@ -78,7 +78,7 @@
       <% if(session == undefined) { %>
       <li><a href="/login">Login</a></li>
       <li><a href="/signup">Sign Up</a></li>
-      <% } else if(session != undefined || session == "") { %>
+      <% } else if(session != undefined) { %>
       <li><a href="/logout">Logout</a></li>
       <% } %>
     </ul>
