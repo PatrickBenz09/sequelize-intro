@@ -55,7 +55,7 @@
       <% if(session == undefined) { %>
       <li><a href="/login">Login</a></li>
       <li><a href="/signup">Sign Up</a></li>
-      <% } else { %>
+      <% } else if(session != undefined && session != "Unauthorized") { %>
       <li><a href="/logout">Logout</a></li>
       <% } %>
     </ul>
