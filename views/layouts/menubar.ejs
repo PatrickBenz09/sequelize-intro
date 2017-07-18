@@ -1,0 +1,59 @@
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!--Import materialize.css-->
+<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
+
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<ul id="studentDropdown" class="dropdown-content">
+  <li><a href="/students">Student</a></li>
+  <li><a href="/students/add">Add Student</a></li>
+</ul>
+<ul id="teacherDropdown" class="dropdown-content">
+  <li><a href="/teachers">Teacher</a></li>
+  <li><a href="/teachers/add">Teacher Add</a></li>
+</ul>
+
+<nav>
+  <div class="nav-wrapper blue-grey darken-4">
+    <a href="#" class="brand-logo center" style="margin-left:-52px; color: gold">FAKE</a>
+    <a href="#" class="brand-logo center" style="border:2px gold solid; margin-left:50px">SCHOOL</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="/">Home</a></li>
+      <% if(session == 'teacher' || session == 'academic' || session == 'headmaster') { %>
+      <li><a class="dropdown-button" data-activates="studentDropdown">Student<i class="material-icons right">arrow_drop_down</i></a></li>
+      <% } %>
+      <% if(session == 'academic' || session == 'headmaster') { %>
+      <li><a href="/subjects">Subject</a></li>
+      <% } %>
+      <% if(session == 'headmaster') { %>
+      <li><a class="dropdown-button" data-activates="teacherDropdown">Teacher<i class="material-icons right">arrow_drop_down</i></a></li>
+      <% } %>
+      <% if(session == undefined) { %>
+      <li><a href="/login">Login</a></li>
+      <li><a href="/signup">Sign Up</a></li>
+      <% } else { %>
+      <li><a href="/logout">Logout</a></li>
+      <% } %>
+    </ul>
+  </div>
+</nav>
+
+<!--jQuery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+
+<script>
+  $(document).ready(function(){
+    $(".dropdown-button").dropdown();
+  });
+</script>
